@@ -20,6 +20,9 @@ Suppose you have a file with names such as Indiv-1,...,Indiv-100 but you need th
 Further, suppose second-table.txt has other columns that are not of interest, such as Color, RobotID, and Age.<p><br /></p>
 <code>
 indivs=$(awk 'NR == 1' second-table.txt | tr '\t' '\n' | awk '$1 ~ /^Indiv-/')
+</code>
+<p><br /></p>
+<code>
 cutnm $indivs first-table.txt > result.txt
 </code>
 
