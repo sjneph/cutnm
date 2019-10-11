@@ -1,0 +1,69 @@
+#!/bin/bash
+# author : sjn
+# date : July.2019
+set -e -o pipefail
+
+usage () {
+  echo -e 'Usage: $0 comma-or-space-separated-colnames [input-file]' >&2
+  exit 2
+}
+
+if [[ $# == 0 ]]; then
+   usage
+fi
+
+filenm=$(echo "${@: -1}")
+colnms=${@:1:$#-1}
+if [ ! -s $filenm ]; then
+  if [ "${filenm}" != "-" ]; then
+    colnms=${@:1:$#}
+  fi
+  filenm=/dev/stdin
+fi
+
+if [ "${usestdin}" == 1 ]; then
+  filenm=/dev/stdin
+  colnms=${@:1:$#}
+fi
+colnms=$(echo $colnms | tr ' ' ',' | sed -e 's;,,\+;,;g')
+
+awk -v cols=$colnms \
+'BEGIN { \
+    FS="\t"; OFS=FS; \
+    n=split(cols,out,","); \
+    mn=n; \
+} \
+NR==1 { \
+    for (i=1; i<=NF; i++) \
+        ix[$i] = i; \
+    for (i in out) { \
+      if (!(out[i] in ix)) { \
+        none[i]; \
+        mn -= 1; \
+      } \
+    } \
+    if(n>0) { \
+      for (i=1; i<=n; ++i) { \
+        if(i>1) { printf "%s", OFS; } \
+        if (! (i in none) ) \
+          printf "%s", $ix[out[i]]; \
+        else
+          printf "%s_NOTFOUND", out[i]; \
+      } \
+      print "" \
+    } \
+} \
+NR>1 { \
+    if(n>0) { \
+      for (i=1; i<=n; i++) { \
+        if(i>1) { printf "%s", OFS; } \
+        if (! (i in none) ) \
+          printf "%s", $ix[out[i]]; \
+        else
+          printf "%s", "NOTFOUND"; \
+      } \
+      print "" \
+    } \
+}' $filenm
+
+exit 0
