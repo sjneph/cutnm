@@ -18,13 +18,12 @@ Notice that you can pass a file name as the last argument or pass things in thro
 
 Suppose you have a file with names such as Indiv-1,...,Indiv-100 but you need them in some other order that matches a different table.
 Further, suppose second-table.txt has other columns that are not of interest, such as Color, RobotID, and Age.<p><br /></p>
+<pre>
 <code>
 indivs=$(awk 'NR == 1' second-table.txt | tr '\t' '\n' | awk '$1 ~ /^Indiv-/')
-</code>
-<p><br /></p>
-<code>
 cutnm $indivs first-table.txt > result.txt
 </code>
+</pre>
 
 result.txt will contain the columns in first-table.txt in the same order they appear in second-table.txt
 Some of the extra bits of awk and tr are just to give a little flavor to common problems.
