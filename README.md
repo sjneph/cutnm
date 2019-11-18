@@ -30,7 +30,7 @@ Some of the extra bits of awk and tr are just to give a little flavor to common 
 In order, awk grabs the first line of the file (column names), tr changes tabs to newlines, and awk grabs the subset that start
 with "Indiv-", which is useful since cutnm currently only works with fixed string exact matches.
 
-In the even that you pass in a non-existent column name, say XYZ, the output will have XYZ_NOTFOUND, followed by NOTFOUND for
+In the event that you pass in a non-existent column name, say XYZ, the output will have XYZ_NOTFOUND, followed by NOTFOUND for
 all remaining rows.
 
 cutnm is just a bash script wrapping an awk statement.  It might become more sophisticated in time.  I use it when dealing with
