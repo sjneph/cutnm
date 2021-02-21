@@ -20,11 +20,6 @@ if [ ! -s $filenm ]; then
   fi
   filenm=/dev/stdin
 fi
-
-if [ "${usestdin}" == 1 ]; then
-  filenm=/dev/stdin
-  colnms=${@:1:$#}
-fi
 colnms=$(echo $colnms | tr ' ' ',' | sed -e 's;,,\+;,;g')
 
 awk -v cols=$colnms \
