@@ -20,8 +20,9 @@ if [[ $# == 0 ]]; then
 fi
 
 i="inactive"
+m="inactive"
 t="\t"
-while getopts "iht:" o; do
+while getopts "ihmt:" o; do
   case "${o}" in
     t)
       t=${OPTARG}
@@ -32,6 +33,9 @@ while getopts "iht:" o; do
     h) # help
       usage
       exit_good
+      ;;
+    m)
+      m="active"
       ;;
     :)
       echo "Error: -${OPTARG} requires an argument."
@@ -70,7 +74,7 @@ NR==1 { \
   if ( caseignore == "active" ) {
     for (i=1; i<=NF; i++) \
       $i = tolower($i); \
-  }
+  } \
   for (i=1; i<=NF; i++) \
     ix[$i] = i; \
   for (i in out) { \
