@@ -26,7 +26,7 @@ cutnm $indivs first-table.txt > result.txt
 </code>
 </pre>
 
-result.txt will contain the subset of columns in first-table.txt in the same order they appear in second-table.txt
+result.txt will contain the subset of columns in first-table.txt in the same order as they appear in second-table.txt
 
 Some of the extra bits of awk and tr are just to give a little flavor to common problems.
 
