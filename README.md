@@ -2,7 +2,7 @@
 > Shane Neph
 
 This is often nicer than <code>cut -f1,12,23,78 < input.txt | awk '{ print $2, $1, $3, $4 }'</code> types of approaches, where columns may change positions over time.
-It can rearrange any number of columns in a table separated by tabs, and will repeat columns if desired.
+It can rearrange any number of columns in a table (by default: separated by tabs), and will repeat columns if desired.
 Column names are case-sensitive by default.
 
 Simple examples
